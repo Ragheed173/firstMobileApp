@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = "https://69a3f823611ecf5bfc23e67f.mockapi.io";
+export const API_URL = "https://69b52824be587338e7152c94.mockapi.io";
 
 const handleErrors = async (err) => {
   if (err?.response?.status === 401) {
