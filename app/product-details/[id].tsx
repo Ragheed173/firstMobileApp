@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 
 const ProductDetails = () => {
   const { id } = useLocalSearchParams();
-  const [productDetails, setProductDetails] = useState<Product | null>(null);
+  const [productDetails, setProductDetails] = useState<any>(null);
 
   const fetchData = async () => {
     const response = await getProductById(id);

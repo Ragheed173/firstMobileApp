@@ -1,47 +1,43 @@
 import { addProduct, getProducts } from "@/api/ProductServise";
 import ProductCard from "@/components/product-card";
-import { useEffect, useState } from "react";
+import { queryClient } from "@/lib/queryClient";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const Products = () => {
-  const [products, setProducts] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
-
   const fetchData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await getProducts();
-      setProducts(response.data);
-      setError(false);
-    } catch (e) {
-      console.error("Error fetching products:", e);
-      setError(true);
-    } finally {
-      setIsLoading(false);
-    }
+    const response = await getProducts();
+    return response.data;
   };
 
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchData,
+  });
+
   const handleAddProduct = async () => {
-    const newProduct = {
+    const data = {
       id: Date.now(),
       name: "New Product",
       price: 100,
-      imageUrl: "https://via.placeholder.com/150",
+      imageUrl: "https://dummyimage.com/600x600/000/fff&text=iPhone+15",
+      description: "This is a new product",
     };
-    const response = await addProduct(newProduct);
-    setProducts([response.data, ...products]);
+    mutate(data);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { mutate } = useMutation({
+    mutationKey: ["addProduct"],
+    mutationFn: addProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
 
   if (isLoading) {
     return <Text>Loading...</Text>;
   }
-
-  if (error) {
+  if (isError) {
     return <Text>Error fetching products.</Text>;
   }
 
@@ -55,7 +51,7 @@ const Products = () => {
       </View>
 
       <ScrollView style={{ height: 1000 }}>
-        {products.map((product: any) => (
+        {data?.map((product: any) => (
           <ProductCard key={product.id} {...product} />
         ))}
       </ScrollView>
