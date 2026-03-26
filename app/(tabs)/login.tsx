@@ -3,12 +3,12 @@ import { Image } from "expo-image";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-    Alert,
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 type FormData = {
