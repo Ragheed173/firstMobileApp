@@ -15,3 +15,7 @@ export const addProduct = async (payload: any) => {
 export const editProduct = async (id: any, payload: any) => {
   return await ApiBase.put(`/api/v1/products/${id}`, payload);
 };
+
+export const deleteProduct = async (id: any) => {
+  return await ApiBase.delete(`/api/v1/products/${id}`);
+}

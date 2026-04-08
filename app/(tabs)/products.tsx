@@ -1,4 +1,4 @@
-import { addProduct, getProducts } from "@/api/ProductServise";
+import { addProduct, deleteProduct, getProducts } from "@/api/ProductServise";
 import ProductCard from "@/components/product-card";
 import { queryClient } from "@/lib/queryClient";
 import { useMutation, useQuery } from "@tanstack/react-query";
