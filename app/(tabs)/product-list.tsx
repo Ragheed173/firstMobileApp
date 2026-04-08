@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  const [products] = useState([]);
 
   return (
     <View>

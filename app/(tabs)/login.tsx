@@ -1,5 +1,6 @@
 import { login } from "@/api/UsersServise";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -20,6 +21,7 @@ export default function LoginScreen() {
   const { control, handleSubmit } = useForm<FormData>({ mode: "all" });
 
   const onSubmit = async (data: FormData) => {
+    router.push("/products");
     Alert.alert("Login Data", JSON.stringify(data));
     try {
       const response = await login(data);
@@ -62,6 +64,12 @@ export default function LoginScreen() {
         style={({ pressed }) => [styles.button, pressed && { opacity: 0.7 }]}
       >
         <Text style={styles.buttonText}>Login</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => router.push("/")}
+        style={({ pressed }) => [styles.button, pressed && { opacity: 0.7 }]}
+      >
+        <Text style={styles.buttonText}>back</Text>
       </Pressable>
     </SafeAreaView>
   );

@@ -7,12 +7,11 @@ const ProductDetails = () => {
   const { id } = useLocalSearchParams();
   const [productDetails, setProductDetails] = useState<any>(null);
 
-  const fetchData = async () => {
-    const response = await getProductById(id);
-    setProductDetails(response.data);
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await getProductById(id);
+      setProductDetails(response.data);
+    };
     fetchData();
   }, [id]);
 
